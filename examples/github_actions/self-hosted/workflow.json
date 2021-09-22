@@ -1,0 +1,12 @@
+{
+  "id": 13290030,
+  "node_id": "W_kwDOAXJAsM4Aysou",
+  "name": ".github/workflows/main.yml",
+  "path": ".github/workflows/main.yml",
+  "state": "active",
+  "created_at": "2021-09-17T14:06:44.000Z",
+  "updated_at": "2021-09-17T14:07:18.000Z",
+  "url": "https://api.github.com/repos/Warewolf-ESB/Warewolf/actions/workflows/13290030",
+  "html_url": "https://github.com/Warewolf-ESB/Warewolf/blob/develop/.github/workflows/main.yml",
+  "badge_url": "https://github.com/Warewolf-ESB/Warewolf/workflows/.github/workflows/main.yml/badge.svg"
+}

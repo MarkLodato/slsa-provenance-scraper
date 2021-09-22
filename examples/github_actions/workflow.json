@@ -1,0 +1,12 @@
+{
+  "id": 10360545,
+  "node_id": "MDg6V29ya2Zsb3cxMDM2MDU0NQ==",
+  "name": "Create a sample provenance",
+  "path": ".github/workflows/example-local.yml",
+  "state": "active",
+  "created_at": "2021-06-13T12:52:56.000Z",
+  "updated_at": "2021-06-13T12:52:56.000Z",
+  "url": "https://api.github.com/repos/slsa-framework/github-actions-demo/actions/workflows/10360545",
+  "html_url": "https://github.com/slsa-framework/github-actions-demo/blob/main/.github/workflows/example-local.yml",
+  "badge_url": "https://github.com/slsa-framework/github-actions-demo/workflows/Create%20a%20sample%20provenance/badge.svg"
+}

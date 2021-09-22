@@ -1,0 +1,42 @@
+{
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "subject": [
+        {
+            "name": "salsa.txt",
+            "digest": {
+                "sha256": "f8161d035cdf328c7bb124fce192cb90b603f34ca78d73e33b736b4f6bddf993"
+            }
+        }
+    ],
+    "predicateType": "https://slsa.dev/provenance/v0.1",
+    "predicate": {
+        "builder": {
+            "id": "https://dev.azure.com/slsa-framework/azure-devops-demo/Attestations"
+        },
+        "metadata": {
+            "buildInvocationId": "https://dev.azure.com/slsa-framework/azure-devops-demo/_build/3",
+            "completeness": {
+                "arguments": true,
+                "environment": false,
+                "materials": false
+            },
+            "reproducible": false,
+            "buildFinishedOn": "2021-09-17T12:53:00.583Z"
+        },
+        "recipe": {
+            "type": "https://dev.azure.com/Attestations/SLSAProvenanceGenerator@0",
+            "definedInMaterial": 0,
+            "entryPoint": "slsa-framework.azure-devops-demo",
+            "arguments": null,
+            "environment": null
+        },
+        "materials": [
+            {
+                "uri": "git+https+https://github.com/slsa-framework/azure-devops-demo",
+                "digest": {
+                    "sha1": "41ab26db4a683f28cc27c7f9807ccaf2810e608e"
+                }
+            }
+        ]
+    }
+}

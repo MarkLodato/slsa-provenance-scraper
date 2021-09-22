@@ -1,0 +1,17 @@
+{
+  "total_count": 1,
+  "artifacts": [
+    {
+      "id": 93403086,
+      "node_id": "MDg6QXJ0aWZhY3Q5MzQwMzA4Ng==",
+      "name": "artifact",
+      "size_in_bytes": 1234,
+      "url": "https://api.github.com/repos/slsa-framework/github-actions-demo/actions/artifacts/93403086",
+      "archive_download_url": "https://api.github.com/repos/slsa-framework/github-actions-demo/actions/artifacts/93403086/zip",
+      "expired": false,
+      "created_at": "2021-09-16T14:24:50Z",
+      "updated_at": "2021-09-16T14:24:51Z",
+      "expires_at": "2021-12-15T14:24:01Z"
+    }
+  ]
+}
