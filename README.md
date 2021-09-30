@@ -28,5 +28,5 @@ WORK IN PROGRESS - NOT YET WORKING
 3.  Run the script:
 
     ```bash
-    $ node --unhandled-rejections=strict github_actions_fetcher.js
+    $ node --unhandled-rejections=strict src/fetchers/github_actions.js
     ```
