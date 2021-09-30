@@ -59,8 +59,9 @@ function build_provenance(data) {
     'predicateType': 'https://slsa.dev/provenance/v0.1',
     'predicate': {
       'builder': {
-        // We can only call it "self-hosted" if all jobs were self-hosted, but
-        // that information is not avilable to us.
+        // TODO: Check if it is GitHub-hosted or self-hosted. The only way I
+        // know how to do this is to download every job's log file and require
+        // that every one has a first line indicating that it's GitHub-hosted.
         'id': 'https://attestations.github.com/actions-workflow/unknown-runner@v1',
       },
       'recipe': {
