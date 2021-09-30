@@ -1,4 +1,5 @@
 const octokit = require('@octokit/request');
+const netrc = require('netrc');
 
 async function main(params) {
   const data = await fetch_run(params);
@@ -7,7 +8,18 @@ async function main(params) {
 }
 
 async function fetch_run(params) {
+  const entry = netrc()['api.github.com'];
+  if (!entry || !entry.password) {
+    throw new Error('Missing password for `api.github.com` in ~/.netrc')
+  }
+  if (!entry.password.startsWith('ghp_')) {
+    throw new Error('Password must be a personal access token ("ghp_...") for `api.github.com` in ~/.netrc')
+  }
+
   const request = octokit.request.defaults({
+    headers: {
+      authorization: 'token ' + entry.password,
+    },
     owner: params.owner,
     repo: params.repo,
   });
