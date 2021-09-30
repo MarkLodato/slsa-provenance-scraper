@@ -45,10 +45,10 @@ async function fetch_run(params) {
   });
 
   return {
-    'run': run.data,
-    'workflow': workflow.data,
-    'jobs': jobs.data,
-    'artifacts': artifacts.data,
+    run: run.data,
+    workflow: workflow.data,
+    jobs: jobs.data,
+    artifacts: artifacts.data,
   };
 }
 
