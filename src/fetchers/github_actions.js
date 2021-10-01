@@ -1,5 +1,8 @@
-const octokit = require('@octokit/request');
+const {Buffer} = require('buffer');
+const crypto = require('crypto')
 const netrc = require('netrc');
+const octokit = require('@octokit/request');
+const {unzipRaw} = require('unzipit');
 
 exports.regexp = new RegExp('^https?://github.com/([^/]+)/([^/]+)/actions/runs/(\\d+)$');
 
@@ -50,18 +53,60 @@ async function fetch_run(params) {
     run_id: params.run_id,
   });
 
+  const subject = await fetch_subject(request, artifacts.data);
+
   return {
     run: run.data,
     workflow: workflow.data,
     jobs: jobs.data,
     artifacts: artifacts.data,
+    subject: subject,
   };
 }
 
+async function fetch_subject(request, artifacts) {
+  const subject = [];
+  let warned = false;
+  if (!artifacts.artifacts) {
+    console.warn('No artifacts found in run');
+  }
+  for (const artifact of artifacts.artifacts) {
+    if (artifact.expired) {
+      if (!warned) {
+        console.warn('Artifacts expired on %s', artifact.expires_at);
+        warned = true;
+      }
+      continue;
+    }
+    const response = await request({
+      url: '/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip',
+      artifact_id: artifact.id
+    });
+    const {entries} = await unzipRaw(response.data);
+    for (const entry of entries) {
+      if (entry.isDirectory) {
+        continue;
+      }
+      subject.push({
+        name: `${artifact.name}/${entry.name}`,
+        digest: {
+          sha256: sha256hex(await entry.arrayBuffer())
+        },
+      });
+    }
+  }
+  subject.sort((a, b) => (a.name > b.name ? 1 : -1));
+  return subject;
+}
+
 function build_provenance(data) {
+  if (!data.subject) {
+    console.error('No subject available so attestation is invalid')
+    return null;
+  }
   return {
     '_type': 'https://in-toto.io/Statement/v0.1',
-    // TODO 'subject': {}
+    'subject': data.subject,
     'predicateType': 'https://slsa.dev/provenance/v0.1',
     'predicate': {
       'builder': {
@@ -103,4 +148,10 @@ function build_provenance(data) {
       }],
     },
   };
+}
+
+function sha256hex(arrayBuffer) {
+  const hash = crypto.createHash('sha256');
+  hash.update(Buffer.from(arrayBuffer));
+  return hash.digest('hex');
 }
