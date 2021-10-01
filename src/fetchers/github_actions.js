@@ -1,10 +1,16 @@
 const octokit = require('@octokit/request');
 const netrc = require('netrc');
 
-async function main(params) {
+exports.regexp = new RegExp('^https?://github.com/([^/]+)/([^/]+)/actions/runs/(\\d+)$');
+
+exports.run = async function(match) {
+  const params = {
+    owner: match[1],
+    repo: match[2],
+    run_id: match[3],
+  };
   const data = await fetch_run(params);
-  const provenance = build_provenance(data);
-  console.log(provenance);
+  return build_provenance(data);
 }
 
 async function fetch_run(params) {
@@ -98,9 +104,3 @@ function build_provenance(data) {
     },
   };
 }
-
-Promise.resolve(main({
-  owner: 'slsa-framework',
-  repo: 'github-actions-demo',
-  run_id: 1241960989,
-}));
