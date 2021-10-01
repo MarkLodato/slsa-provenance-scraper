@@ -28,5 +28,11 @@ WORK IN PROGRESS - NOT YET WORKING
 3.  Run the script:
 
     ```bash
-    $ node --unhandled-rejections=strict src/fetchers/github_actions.js
+    $ node src/cli.js <actions-run-url>
+    ```
+
+    Example:
+
+    ```bash
+    $ node src/cli.js https://github.com/slsa-framework/github-actions-demo/actions/runs/1241960989
     ```
