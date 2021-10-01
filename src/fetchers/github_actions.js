@@ -118,12 +118,9 @@ function build_provenance(data) {
       'recipe': {
         'type': 'https://slsa.github.com/workflow@v1',
         'definedInMaterial': 0,
-        // TODO: Update the spec to match this format. This code does
-        // `.github/workflows/{workflow}`, while the spec says
-        // `{workflow}:{job}`. We can't tell which job wrote which artifact, so
-        // dropping job is a good idea, and including `.github/workflows/` makes
-        // it easier to understand.
-        'entryPoint': data.workflow.path,
+        // TODO: The spec currenly appends `:{job}` to the entryPoint, but we
+        // don't have that information so we should drop it from the spec.
+        'entryPoint': removePrefix(data.workflow.path,  '.github/workflow/'),
         // Omit 'arguments'. Either:
         // - The event was 'workflow_dispatch': There may have been arguments
         //   (`input`) but we have no way of knowing.
@@ -148,6 +145,13 @@ function build_provenance(data) {
       }],
     },
   };
+}
+
+function removePrefix(string, prefix) {
+  if (string.startsWith(prefix)) {
+    return string.slice(prefix.length);
+  }
+  return string;
 }
 
 function sha256hex(arrayBuffer) {
