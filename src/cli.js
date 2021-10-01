@@ -25,7 +25,7 @@ async function main() {
     }
   }
   if (provenance !== null) {
-    console.log(provenance);
+    console.log(JSON.stringify(provenance, null, 2));
   } else {
     console.error('Unrecognized URI: %s', uri);
   }
