@@ -138,7 +138,11 @@ function build_provenance(data) {
         }
       },
       'materials': [{
-        'uri': `git+${data.run.repository.html_url}@${data.run.head_branch}`,
+        // IMPORTANT: In the case of a pull_request event, `head_repository` is
+        // the branch that was actually built from, while `repository` is the
+        // upstream repo that it is being pulled into. We need `head_repository`
+        // for security or else someone can fake the provenance.
+        'uri': `git+${data.run.head_repository.html_url}@${data.run.head_branch}`,
         'digest': {
           'sha1': data.run.head_sha,
         },
