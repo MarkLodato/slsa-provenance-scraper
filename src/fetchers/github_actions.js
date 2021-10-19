@@ -132,7 +132,7 @@ function build_provenance(data) {
         'buildStartedOn': data.run.created_at,
         'buildFinishedOn': data.run.updated_at,
         'completeness': {
-          'arguments': (data.run.event == 'workflow_dispatch'),
+          'arguments': (data.run.event != 'workflow_dispatch'),
           'environment': false,
           'materials': false,
         }
